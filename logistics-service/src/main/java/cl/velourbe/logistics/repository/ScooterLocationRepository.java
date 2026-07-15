@@ -34,11 +34,11 @@ public interface ScooterLocationRepository extends JpaRepository<ScooterLocation
      * @return list of scooter locations within the area
      */
     @Query(value = """
-        SELECT sl FROM ScooterLocation sl WHERE
-        (6371 * ACOS(COS(RADIANS(:latitude)) * COS(RADIANS(sl.latitude)) * 
-        COS(RADIANS(sl.longitude) - RADIANS(:longitude)) + 
+        SELECT * FROM scooter_locations sl WHERE
+        (6371 * ACOS(COS(RADIANS(:latitude)) * COS(RADIANS(sl.latitude)) *
+        COS(RADIANS(sl.longitude) - RADIANS(:longitude)) +
         SIN(RADIANS(:latitude)) * SIN(RADIANS(sl.latitude)))) <= :radiusKm
-        """)
+        """, nativeQuery = true)
     List<ScooterLocation> findScootersInArea(
         @Param("latitude") Double latitude,
         @Param("longitude") Double longitude,

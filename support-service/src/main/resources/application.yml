@@ -21,6 +21,9 @@ spring:
   flyway:
     locations: classpath:db/migration
     enabled: true
+  autoconfigure:
+    exclude:
+      - org.springdoc.core.configuration.SpringDocHateoasConfiguration
 
 server:
   port: 8089
